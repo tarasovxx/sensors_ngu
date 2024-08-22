@@ -18,16 +18,20 @@ file_list = os.listdir(folder_path)
 
 # Извлечение времени из названий файлов
 times = sorted([file.split('_')[-2] for file in file_list])
+times_new = sorted([file.split('_')[-2].replace('-', ':')[:5] for file in file_list])
+m_d = {}
+for i, time in enumerate(times):
+    m_d[times_new[i]] = time
 
 # Создание Streamlit-приложения
 st.title("Technohack 2024. Это вода - 52 | Любители Коксы.")
 st.title("Карта температур")
 
 # Выбор времени
-selected_time = st.selectbox("Выберите время:", times)
+selected_time = st.selectbox("Выберите время:", times_new)
 
 # Загрузка данных для выбранного времени
-selected_file = next(file for file in file_list if selected_time in file)
+selected_file = next(file for file in file_list if m_d[selected_time] in file)
 temp_data = pd.read_csv(os.path.join(folder_path, selected_file), delimiter=';', names=['Length', 'Temperature'], skiprows=20)
 
 # Загрузка данных для карты
@@ -72,7 +76,7 @@ heat_layer.add_to(m)
 folium_html = m._repr_html_()
 st.components.v1.html(folium_html, height=500, width=700)
 
-st.write("Данные для тепловой карты:", heat_data[:10])
+# st.write("Данные для тепловой карты:", heat_data[:10])
 
 # Добавление графиков
 st.header("Анализ температурных данных")
