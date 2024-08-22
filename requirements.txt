@@ -3,3 +3,5 @@ folium~=0.17.0
 streamlit~=1.37.1
 numpy~=1.26.4
 seaborn~=0.13.2
+plotly
+matplotlib
