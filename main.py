@@ -99,55 +99,55 @@ st.components.v1.html(folium_html, height=500, width=700)
 # Добавление графиков
 st.header("Анализ температурных данных")
 #
-# # График изменения температуры по длине
-# st.subheader("Изменение температуры по длине")
-# fig, ax = plt.subplots()
-# sns.lineplot(x='Length', y='Temperature', data=temp_data, ax=ax)
-# ax.set_xlim(2, 350)
-# ax.set_xlabel("Длина (м)")
-# ax.set_ylabel("Температура (°C)")
-# st.pyplot(fig)
+# График изменения температуры по длине
+st.subheader("Изменение температуры по длине")
+fig, ax = plt.subplots()
+sns.lineplot(x='Length', y='Temperature', data=temp_data, ax=ax)
+ax.set_xlim(2, 350)
+ax.set_xlabel("Длина (м)")
+ax.set_ylabel("Температура (°C)")
+st.pyplot(fig)
+#
+import matplotlib.patches as mpatches
+#
+# График изменения температуры по длине
+st.subheader("Изменение температуры по длине")
+fig, ax = plt.subplots()
+sns.lineplot(x='Length', y='Temperature', data=temp_data, ax=ax)
 
-# import matplotlib.patches as mpatches
+# Разметка фона графика по заданным интервалам
+intervals = [
+    (0, 32, 'red', 'Дом'),
+    (32, 105, 'green', 'Лес'),
+    (105, 150, 'yellow', 'Поляна'),
+    (150, 203, 'green', 'Лес'),
+    (203, 234, 'yellow', 'Поляна'),
+    (234, 350, 'blue', 'Вода')
+]
 
-# # График изменения температуры по длине
-# st.subheader("Изменение температуры по длине")
-# fig, ax = plt.subplots()
-# sns.lineplot(x='Length', y='Temperature', data=temp_data, ax=ax)
-#
-# # Разметка фона графика по заданным интервалам
-# intervals = [
-#     (0, 32, 'red', 'Дом'),
-#     (32, 105, 'green', 'Лес'),
-#     (105, 150, 'yellow', 'Поляна'),
-#     (150, 203, 'green', 'Лес'),
-#     (203, 234, 'yellow', 'Поляна'),
-#     (234, 350, 'blue', 'Вода')
-# ]
-#
-# for start, end, color, label in intervals:
-#     ax.axvspan(start, end, facecolor=color, alpha=0.3)
-#
-# ax.set_xlim(2, 350)
-# ax.set_xlabel("Длина (м)")
-# ax.set_ylabel("Температура (°C)")
-#
-# # Создание легенды
-# visited = set()
-# patches = []
-# for _, _, color, label in intervals:
-#     if color not in visited:
-#         patches.append(mpatches.Patch(color=color, label=label))
-#     visited.add(color)
-#
-# ax.legend(handles=patches, loc='upper right')
-#
-# st.pyplot(fig)
+for start, end, color, label in intervals:
+    ax.axvspan(start, end, facecolor=color, alpha=0.3)
 
-# # Гистограмма распределения температур
-# st.subheader("Распределение температур")
-# fig, ax = plt.subplots()
-# sns.histplot(temp_data['Temperature'], bins=30, kde=True, ax=ax)
-# ax.set_xlabel("Температура (°C)")
-# ax.set_ylabel("Частота")
-# st.pyplot(fig)
+ax.set_xlim(2, 350)
+ax.set_xlabel("Длина (м)")
+ax.set_ylabel("Температура (°C)")
+
+# Создание легенды
+visited = set()
+patches = []
+for _, _, color, label in intervals:
+    if color not in visited:
+        patches.append(mpatches.Patch(color=color, label=label))
+    visited.add(color)
+
+ax.legend(handles=patches, loc='upper right')
+
+st.pyplot(fig)
+#
+# Гистограмма распределения температур
+st.subheader("Распределение температур")
+fig, ax = plt.subplots()
+sns.histplot(temp_data['Temperature'], bins=30, kde=True, ax=ax)
+ax.set_xlabel("Температура (°C)")
+ax.set_ylabel("Частота")
+st.pyplot(fig)
