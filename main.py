@@ -13,6 +13,7 @@ from branca.colormap import linear
 
 # Путь к папке с файлами
 folder_path = 'Nigth_renamed'
+st.set_page_config(layout="wide")
 
 # Получение списка файлов
 file_list = os.listdir(folder_path)
